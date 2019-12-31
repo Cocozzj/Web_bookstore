@@ -1,0 +1,135 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import util.DataSourceUtils;
+
+/*
+ * 用户类操作类
+ * @author: luoxn28
+ * @date: 2016.5.13
+ */
+public class UserDao {
+	/*
+	 * 往user表中插入一个用户
+	 * @param User
+	 * @return void
+	 */
+	public void addUser(User user) {
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "INSERT user (username, password, role, registTime)"
+					+ "value(?, ?, ?, ?)";
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, user.getUsername());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getRole());
+			statement.setString(4, user.getRegistTime());
+			statement.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * 根据用户名获取数据库中该用户记录
+	 * @param username
+	 * @return User 未找到时返回null
+	 */
+	public User getUser(String username) {
+		User user = null;
+		
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "SELECT * from user where username='" + username + "'";
+			
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				//user.setState(resultSet.getInt("state"));
+				user.setRole(resultSet.getString("role"));
+				user.setRegistTime(resultSet.getString("registTime"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	/*
+	 * 根据用户id获取数据库中该用户记录
+	 * @param id 用户id
+	 * @return User 该用户对应，未找到返回null
+	 */
+	public User getUser(int id) {
+		User user = null;
+		
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "SELECT * from user where id=" + id;
+			
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				//user.setState(resultSet.getInt("state"));
+				user.setRole(resultSet.getString("role"));
+				user.setRegistTime(resultSet.getString("registTime"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	/*
+	 * 获取所有用户
+	 * @param void
+	 * @return User 所有用户
+	 */
+	public List<User> getAllUser() {
+		List<User> users = null;
+		
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "SELECT * from user";
+			
+			users = new ArrayList<User>();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setRole(resultSet.getString("role"));
+				user.setRegistTime(resultSet.getString("registTime"));
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
+}

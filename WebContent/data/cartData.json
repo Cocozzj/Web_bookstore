@@ -1,0 +1,40 @@
+{
+	"status":1,
+	"result":{
+		"totalMoney":59,
+		"list":[
+			{
+				"productId":"60001",
+				"productName":"HTML5+CSS3全面讲解",
+				"productPrice":19,
+				"productQuentity":1,
+				"productImage":"img/img1.jpg",
+				"parts":[
+					{
+						"partsId":"10001",
+						"partsName":"铅笔"
+					},
+					{
+						"partsId":"10002",
+						"partsName":"书签"
+					}
+				]
+			},
+			{
+				"productId":"60002",
+				"productName":"Javascrip从入门到精通",
+				"productPrice":15,
+				"productQuentity":1,
+				"productImage":"img/img1.jpg",
+				"parts":[
+					{
+						"partsId":"10003",
+						"partsName":"圆珠笔"
+					}
+				]
+			}
+		]
+	},
+	"message":""
+}
+

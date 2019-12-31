@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- c3p0具体使用参考: http://www.cnblogs.com/luoxn28/p/5277596.html -->  
+<c3p0-config>  
+    <default-config>  
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/book_store?useUnicode=true&amp;characterEncoding=utf8</property>  
+        <property name="driverClass">com.mysql.jdbc.Driver</property>  
+        <property name="user">root</property>  
+        <property name="password"></property>   
+    </default-config>
+</c3p0-config>
